@@ -31,6 +31,11 @@ async function run() {
 
     const taskCollection = client.db("taskDB").collection("tasks");
 
+    app.get("/tasks", async(req, res) => {
+      const result = await taskCollection.find().toArray();
+      res.send(result)
+    })
+
     app.post("/tasks", async(req, res) => {
         const newTask = req.body;
         const result = await taskCollection.insertOne(newTask);
